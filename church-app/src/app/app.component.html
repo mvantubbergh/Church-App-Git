@@ -1,0 +1,174 @@
+<nb-layout>
+  
+  <nb-layout-column>
+    <nb-card class="church-services-header">
+      <nb-card-body>
+        <h1>Church Services</h1>
+      </nb-card-body>
+    </nb-card>
+
+    <nb-alert *ngIf="showSuccessMessage" status="success" closable (close)="onClose()">
+      {{successMessage}}
+    </nb-alert>
+    
+    <nb-card>
+      <div class="services-box">
+        <div class="services-list w-100">
+          <nb-card-header>
+            <h2>Church Services</h2>
+          </nb-card-header>
+          <nb-card-body>
+            <nb-list>
+              <nb-list-item *ngFor="let service of churchServices" class="service-item">
+                <span class="service-info">
+                  {{ service.location }} ({{ service.seats != 0 ? service.seats : 'unspecified' }} seats)
+                </span>
+                <div class="button-group">
+                  <button nbButton class="view-service action-service" status="info" (click)="viewServiceDetails(service)" 
+                          [ngClass]="{ 'active': selectedService === service }">
+                    View
+                  </button>
+                  <button nbButton class="edit-service action-service" status="primary" (click)="editChurchService(service)">
+                    Edit
+                  </button>
+                  <button nbButton class="delete-service action-service" status="danger" (click)="deleteChurchService(service)">
+                    Delete
+                  </button>
+                </div>
+              </nb-list-item>
+            </nb-list>
+          </nb-card-body>
+        </div>
+    
+        <div class="col-md-6-right w-100 mt-3">
+          <h5>{{ selectedService ? selectedService.location : 'Click on a service to view details!' }}</h5>
+          <nb-card *ngIf="itemViewed" id="service-info-card">
+            <nb-card-body>
+              <p> {{ selectedService ? 'Service location: ' + selectedService.location : '' }}</p>
+              <p> {{ selectedService ? 'Service seats: ' + selectedService.seats : '' }}</p>
+              <p> {{ selectedService?.time ? 'Service time: ' + convertToTime(selectedService.time) : 'Service time: Not yet specified' }}</p>
+            </nb-card-body>
+          </nb-card>
+        </div>
+      </div>  
+    </nb-card>
+  
+    <nb-card>
+      <nb-card-header>
+        <h3>{{ editMode ? 'Edit Church Service' : 'Create New Church Service' }}</h3>
+      </nb-card-header>
+      <nb-card-body>
+        <form (ngSubmit)="editMode ? updateChurchService() : createChurchService()">
+          
+          <div style="margin-bottom: 15px;">
+            <!-- time section -->
+            <label for="serviceTime">Service Time:</label>
+
+            <!-- edit time -->
+            <input
+            *ngIf="editMode"
+            nbInput
+            class="service-details"
+            name="editServiceTime"
+            placeholder="Select Time"
+            [(ngModel)]="currentChurchService.time"
+            [nbTimepicker]="timepicker"
+            [ngModelOptions]="{standalone: true}"
+            fullWidth
+          />
+            <nb-timepicker #timepicker></nb-timepicker>
+
+            <input
+              nbInput
+              *ngIf="!editMode"
+              name="newServiceTime"
+              class="service-details"
+              placeholder="Select Time"
+              [(ngModel)]="newChurchService.time"
+              [ngModelOptions]="{standalone: true}"
+              [nbTimepicker]="timepicker2"
+              fullWidth
+            />
+            <nb-timepicker #timepicker2 format="HH:mm"></nb-timepicker>
+
+            <!-- location section -->
+            <label for="location">Location:</label>
+
+              
+            <!-- edit location -->
+            <input
+            class="service-details"
+            *ngIf="editMode"
+            nbInput
+            placeholder="Enter Location"
+            [(ngModel)]="currentChurchService.location"
+            [ngModelOptions]="{standalone: true}"
+            name="editLocation"
+            required
+            fullWidth
+            />
+
+            <!-- add location -->
+            <input
+              class="service-details"
+              *ngIf="!editMode"
+              nbInput
+              placeholder="Enter Location"
+              [(ngModel)]="newChurchService.location"
+              [ngModelOptions]="{standalone: true}"
+              name="newLocation"
+              required
+              fullWidth
+            />
+
+            <!-- seats section -->
+            <label for="seats">Seats:</label>
+            
+            <!-- edit seats -->
+            <input
+              class="service-details"
+              *ngIf="editMode"
+              nbInput
+              placeholder="Enter Seats"
+              [(ngModel)]="currentChurchService.seats"
+              [ngModelOptions]="{standalone: true}"
+              name="editSeats"
+              required
+              fullWidth
+            />
+
+            <!-- add seats -->
+            <input
+              class="service-details"
+              *ngIf="!editMode"
+              nbInput
+              placeholder="Enter Seats"
+              [(ngModel)]="newChurchService.seats"
+              [ngModelOptions]="{standalone: true}"
+              name="newSeats"
+              required
+              fullWidth
+            />
+
+          </div>
+
+          <button nbButton status="success" type="submit" class="action-service">
+            {{ editMode ? 'Update Church Service' : 'Create Church Service' }}
+          </button>
+          
+          <button
+            class="action-service"
+            *ngIf="editMode"
+            nbButton
+            status="danger"
+            (click)="resetForm()"
+            type="button"
+            style="margin-left: 10px;"
+          >
+            Cancel
+          </button>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </nb-layout-column>
+</nb-layout>

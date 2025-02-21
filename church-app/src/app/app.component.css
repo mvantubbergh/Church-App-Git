@@ -1,0 +1,149 @@
+.church-services-header {
+    background-color: #222b45;            
+    text-align: center;
+    padding: 0.3rem;
+    border-radius: 0;
+    box-shadow: none;
+    margin-bottom: 1rem;
+}
+
+.church-services-header h1 {
+    color: #ffffff;
+    font-size: 3rem;
+}
+  
+
+button.edit-service {
+    margin-left: 1rem;
+    height: 2rem;
+    width: 3rem;
+    text-decoration: none;
+    background-color: black !important;
+    color: white !important;
+    border: 0.1rem solid transparent !important;
+}
+
+button.delete-service {
+    margin-left: 1rem;
+    height: 2rem;
+    width: 5rem;
+    text-decoration: none;
+    background-color: black !important;
+    color: white !important;
+    border: 0.1rem solid transparent !important;
+}
+
+button.view-service {
+    margin-left: 1rem;
+    height: 2rem;
+    width: 5rem;
+    text-decoration: none;
+    background-color: black !important;
+    color: white !important;
+    border: 0.1rem solid transparent !important;
+}
+
+button.action-service:hover {
+    background-color: white !important;
+    color: #36f !important;
+    border: 0.1rem solid #36f !important;
+    border-radius: 0%;
+    text-decoration: none;
+}
+
+button.delete-service:hover {
+    background-color: white !important;
+    color: red !important;
+    border: 0.1rem solid red !important;
+}
+
+button.view-service:hover {
+    background-color: white !important;
+    color: green !important;
+    border: 0.1rem solid green !important;
+}
+
+input.service-details {
+    width: 50% !important; 
+    display: block !important;
+    margin-bottom: 1rem;
+}
+
+button.action-service {
+    box-sizing: border-box;
+    background-color: black !important;
+    color: white !important;
+    border: 0.1rem solid transparent !important;
+}
+
+nb-card {
+    overflow-y: hidden;
+}
+
+nb-alert {
+    position: fixed;
+    top: 3rem;
+    z-index: 1000;  
+  }
+
+
+.services-box {
+    display: flex;
+    flex-wrap: wrap;  
+}
+
+.services-list {
+    width: 100%;  
+    padding-left: 1rem;
+}
+
+.col-md-6-right {
+    width: 50%;  
+    margin-top: 1rem;
+    margin-left: 20%; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+#service-info-card {
+    /* text-align: center; */
+    width: 100%;
+    margin-left: 25%;
+}
+
+.service-item {
+    display: flex;
+    align-items: center; 
+    padding: 10px 0;
+    position: relative;
+}
+
+.button-group {
+    display: flex;
+    gap: 0.5rem;
+    position: absolute;
+    left: 50%; 
+    transform: translateX(-50%); 
+}
+
+.view-service.active {
+    background-color: darkblue !important;
+    color: white !important; 
+    border: 2px solid darkblue !important;
+}
+
+/* mobile things */
+@media (max-width: 768px) {
+    .service-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .button-group {
+        position: static;
+        transform: none; 
+        width: 100%; 
+        margin-top: 1rem; 
+    }
+}
